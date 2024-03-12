@@ -1,4 +1,3 @@
-
 from dotenv import load_dotenv
 from langchain.document_loaders import UnstructuredURLLoader
 import sitemap as sitemap
@@ -22,11 +21,17 @@ docs = text_splitter.split_documents(data)
 
 embeddings = OpenAIEmbeddings() 
 
-vector_store = FAISS.from_documents(docs, embeddings) 
+vectorstore = FAISS.from_documents(docs, embeddings)
 
-with open("vector_store.pkl", "wb") as f:
-    pickle.dump(vector_store, f)
+vectorstore.save_local("vectorstore")
 
+x = FAISS.load_local("vectorstore", OpenAIEmbeddings(), allow_dangerous_deserialization=True)
+
+retriever = x.as_retriever()
 llm = OpenAI(temperature=0.0)
 
-chain = RetrievalQAWithSourcesChain(llm = llm, retriever=vector_store.as_retriever())
+chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain=load_qa_chain(llm= llm))
+
+data = chain({"question" : "Who is the dean of FSIT?"})
+
+print(data)
