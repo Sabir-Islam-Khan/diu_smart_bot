@@ -8,3 +8,4 @@ load_dotenv()
 loaders = UnstructuredURLLoader(urls=sitemap.Urls)
 data = loaders.load()
 
+print(data)
