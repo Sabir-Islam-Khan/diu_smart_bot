@@ -32,6 +32,9 @@ llm = OpenAI(temperature=0.0)
 
 chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain=load_qa_chain(llm= llm))
 
-data = chain({"question" : "Who is the head of CSE?"})
 
-print(data)
+def get_information(question):
+    data = chain({"question" : question})
+    return data
+
+
