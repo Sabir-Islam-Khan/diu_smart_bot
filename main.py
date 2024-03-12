@@ -2,18 +2,18 @@ import streamlit as st
 import helper as helper
 import sitemap as sitemap
 def main():
-    st.title("Romantic Caption Generator")
+    st.title("Daffodil Smart Bot")
 
-    text_input = st.text_input("Enter the text for the caption:")
+    text_input = st.text_input("What do you want to know?")
     
-    lang_input = st.text_input("Enter the language for the caption (e.g., en for English):")
     
-    if st.button("Generate Caption"):
-        if text_input.strip() and lang_input.strip():
-            caption = "Your caption will be generated here."
-            st.write("Generated Caption:", caption)
+    if st.button("Get Information"):
+        if text_input.strip():
+            caption = "Your answers will be here"
+            data = helper.get_information(text_input)
+            st.write("Answers for query:", data)
         else:
-            st.warning("Please enter text and language.")
+            st.warning("Please enter question to get answer.")
 
 if __name__ == "__main__":
     main()
