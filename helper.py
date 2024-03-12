@@ -22,11 +22,11 @@ docs = text_splitter.split_documents(data)
 
 embeddings = OpenAIEmbeddings() 
 
-# vector_store = FAISS.from_documents(docs, embeddings) 
+vector_store = FAISS.from_documents(docs, embeddings) 
 
-# with open("vector_store.pkl", "wb") as f:
-#     pickle.dump(vector_store, f)
+with open("vector_store.pkl", "wb") as f:
+    pickle.dump(vector_store, f)
 
 llm = OpenAI(temperature=0.0)
 
-print("done")
+chain = RetrievalQAWithSourcesChain(llm = llm, retriever=vector_store.as_retriever())
