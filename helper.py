@@ -21,9 +21,9 @@ docs = text_splitter.split_documents(data)
 
 embeddings = OpenAIEmbeddings() 
 
-vectorstore = FAISS.from_documents(docs, embeddings)
+# vectorstore = FAISS.from_documents(docs, embeddings)
 
-vectorstore.save_local("vectorstore")
+# vectorstore.save_local("vectorstore")
 
 x = FAISS.load_local("vectorstore", OpenAIEmbeddings(), allow_dangerous_deserialization=True)
 
@@ -32,6 +32,6 @@ llm = OpenAI(temperature=0.0)
 
 chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain=load_qa_chain(llm= llm))
 
-data = chain({"question" : "Who is the dean of FSIT?"})
+data = chain({"question" : "Who is the head of CSE?"})
 
 print(data)
