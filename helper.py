@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 from langchain.document_loaders import UnstructuredURLLoader
 import sitemap as sitemap
 from langchain.text_splitter import CharacterTextSplitter
+import pickle
+import faiss
+from langchain.vectorstores import FAISS
+from langchain.embeddings import OpenAIEmbeddings 
 
 load_dotenv()
 
@@ -13,4 +17,6 @@ text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_ove
 
 docs = text_splitter.split_documents(data)
 
-print(docs)
+embeddings = OpenAIEmbeddings() 
+
+print(embeddings)
