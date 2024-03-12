@@ -34,7 +34,7 @@ chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain
 
 
 def get_information(question):
-    data = chain({"question" : question})
+    data = chain({"question" : "Answer the questions with context like you are talking to a human. Question is : " + question})
     return data
 
 
