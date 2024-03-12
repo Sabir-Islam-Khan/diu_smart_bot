@@ -19,4 +19,7 @@ docs = text_splitter.split_documents(data)
 
 embeddings = OpenAIEmbeddings() 
 
-print(embeddings)
+vector_store = FAISS.from_documents(docs, embeddings) 
+
+with open("vector_store.pkl", "wb") as f:
+    pickle.dump(vector_store, f)
