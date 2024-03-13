@@ -1,6 +1,6 @@
 Packages 
 
-python_dotenv
+pip install python_dotenv
 langchain
 streamlit 
 python-magic-bin 
