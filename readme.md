@@ -1,4 +1,14 @@
-Packages 
+#How to run
+
+
+First create a virtual envionment by running this command :   python -m venv venv 
+
+
+then, switch to the virtual envionment by running 
+./venv/Scripts/Activate.ps1
+
+
+now install packages by running : 
 
 pip install python_dotenv
 langchain
@@ -12,3 +22,8 @@ transformer
 sentence_transformer
 accelerate
 bitsandbytes
+
+
+Now run the project like this : 
+
+python main.py
