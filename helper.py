@@ -19,7 +19,7 @@ text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_ove
 
 docs = text_splitter.split_documents(data)
 
-embeddings = OpenAIEmbeddings() 
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small") 
 
 # vectorstore = FAISS.from_documents(docs, embeddings)
 
