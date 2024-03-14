@@ -12,18 +12,18 @@ from langchain import OpenAI
 
 load_dotenv()
 
-loaders = UnstructuredURLLoader(urls=sitemap.Urls)
-data = loaders.load()
+#loaders = UnstructuredURLLoader(urls=sitemap.Urls)
+#data = loaders.load()
 
-text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
+#text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
 
-docs = text_splitter.split_documents(data)
+#docs = text_splitter.split_documents(data)
 
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small") 
+embeddings = OpenAIEmbeddings() 
 
-# vectorstore = FAISS.from_documents(docs, embeddings)
+#vectorstore = FAISS.from_documents(docs, embeddings)
 
-# vectorstore.save_local("vectorstore")
+#vectorstore.save_local("vectorstore")
 
 x = FAISS.load_local("vectorstore", OpenAIEmbeddings(), allow_dangerous_deserialization=True)
 
@@ -34,7 +34,7 @@ chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain
 
 
 def get_information(question):
-    data = chain({"question" : "Answer the questions with context like you are talking to a human. Question is : " + question})
+    data = chain({"question" : "You are a chatBot of Daffodil Interntional University. You have all the data you need. Answer the questions with context like you are talking to a human. Question is : " + question})
     return data
 
 
