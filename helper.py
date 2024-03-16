@@ -48,34 +48,26 @@ llm = HuggingFaceHub(
 #qa = RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
 
 
-query = "Who is dean of FSIT"
 
-prompt = f"""
- <|system|>
-You are an AI assistant that follows instruction extremely well.
-Please be truthful and give direct answers
-</s>
- <|user|>
- {query}
- </s>
- <|assistant|>
-"""
+
+
 
 qa = RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
 
-response = qa.run(prompt)
 
-print(response)
+def getInformation(query):
+    prompt = f"""
+        <|system|>
+        You are an AI assistant that follows instruction extremely well.
+        Please be truthful and give direct answers
+        </s>
+        <|user|>
+        {query}
+        </s>
+        <|assistant|>
+    """
+    return qa.run(prompt) 
+    
 
-#prompt = ChatPromptTemplate.from_template(template)
 
-# rag_chain = (
-#     {"context": retriever,  "query": RunnablePassthrough()}
-#     | prompt
-#     | llm
-#     | StrOutputParser()
-# )
 
-#response = rag_chain.invoke("Who is the dean of FSIT")
-
-#print(response)
