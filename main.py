@@ -8,14 +8,12 @@ def main():
     
     if st.button("Get Information"):
         if text_input.strip():
-            data = helper.get_information(text_input)
-            if "answer" in data:
-                answer = data["answer"]
+            data = helper.getInformation(text_input)
+          
                 
-                st.success( answer)
+            st.success(data)
                 
-            else:
-                st.error("No answer found for the query.")
+           
         else:
             st.warning("Please enter a question to get an answer.")
 

@@ -10,6 +10,9 @@ from langchain.schema.output_parser import StrOutputParser
 from langchain.prompts import ChatPromptTemplate
 from langchain.document_loaders import UnstructuredURLLoader
 import sitemap
+from langchain.chains import RetrievalQAWithSourcesChain
+from langchain.chains.question_answering import load_qa_chain 
+
 nest_asyncio.apply()
 
 
@@ -18,14 +21,11 @@ nest_asyncio.apply()
 loader = UnstructuredURLLoader(urls=sitemap.Urls)
 data = loader.load()
 
-print("data is \n\n")
-print(data)
 
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
 
 docs = text_splitter.split_documents(data)
 
-print(docs)
 
 embeddings = HuggingFaceInferenceAPIEmbeddings(
     api_key="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", model_name="BAAI/bge-base-en-v1.5"
@@ -52,7 +52,7 @@ llm = HuggingFaceHub(
 
 
 
-qa = RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
+chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain=load_qa_chain(llm= llm))
 
 
 def getInformation(query):
@@ -66,8 +66,10 @@ def getInformation(query):
         </s>
         <|assistant|>
     """
-    return qa.run(prompt) 
+    data = chain({"question" : "You are a chatBot of Daffodil Interntional University. You have all the data you need. Answer the questions with context like you are talking to a human. Question is : " + query})
+    return data
     
 
+data = getInformation("What is the name of the Dean of FSIT?")
 
-
+print(data["answer"])
