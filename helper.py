@@ -8,24 +8,29 @@ import nest_asyncio
 from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 from langchain.prompts import ChatPromptTemplate
-
+from langchain.document_loaders import UnstructuredURLLoader
+import sitemap
 nest_asyncio.apply()
 
 
-WEBSITE_URL = "https://sabirislam.me/"
 
-loader = WebBaseLoader(WEBSITE_URL)
-loader.requests_per_second = 1
-docs = loader.aload()
 
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=256, chunk_overlap=20)
-chunks = text_splitter.split_documents(docs)
+loader = UnstructuredURLLoader(urls=sitemap.Urls)
+data = loader.load()
+
+print("data is \n\n")
+print(data)
+text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
+
+docs = text_splitter.split_documents(data)
+
+print(docs)
 
 embeddings = HuggingFaceInferenceAPIEmbeddings(
     api_key="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", model_name="BAAI/bge-base-en-v1.5"
 )
 
-vectorstore = Chroma.from_documents(chunks, embeddings)
+vectorstore = Chroma.from_documents(docs, embeddings)
 
 retriever = vectorstore.as_retriever(
     search_type="mmr", #similarity
