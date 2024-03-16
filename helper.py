@@ -5,6 +5,9 @@ from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
 from langchain.vectorstores import FAISS, Chroma
 from langchain.chains import RetrievalQA, LLMChain
 import nest_asyncio
+from langchain.schema.runnable import RunnablePassthrough
+from langchain.schema.output_parser import StrOutputParser
+from langchain.prompts import ChatPromptTemplate
 
 nest_asyncio.apply()
 
@@ -49,6 +52,28 @@ Please be truthful and give direct answers.  Answer questions only from the cont
 
 qa = RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
 
-response = qa.run(prompt)
+
+
+template = """
+ <|system|>
+You are an AI assistant that follows instruction extremely well.
+Please be truthful and give direct answers
+</s>
+ <|user|>
+ {query}
+ </s>
+ <|assistant|>
+"""
+
+prompt = ChatPromptTemplate.from_template(template)
+
+rag_chain = (
+    {"context": retriever,  "query": RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
+
+response = rag_chain.invoke("What is the context you are provided is about?")
 
 print(response)
