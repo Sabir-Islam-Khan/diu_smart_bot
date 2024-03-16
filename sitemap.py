@@ -1,3 +1,3 @@
 Urls = [
-    "https://sabirislam.me/"
+    "https://daffodilvarsity.edu.bd/article/deans-heads"
     ]

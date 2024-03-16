@@ -20,6 +20,7 @@ data = loader.load()
 
 print("data is \n\n")
 print(data)
+
 text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
 
 docs = text_splitter.split_documents(data)
@@ -42,24 +43,14 @@ llm = HuggingFaceHub(
     model_kwargs={"temperature": 0.5, "max_length": 64,"max_new_tokens":512}
 )
 
-query = "Who is Sabir Islam Khan?"
+
+
+#qa = RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
+
+
+query = "Who is dean of FSIT"
 
 prompt = f"""
- <|system|>
-You are an AI assistant that follows instruction extremely well.
-Please be truthful and give direct answers.  Answer questions only from the context that you are given
-</s>
- <|user|>
- {query}
- </s>
- <|assistant|>
-"""
-
-qa = RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
-
-
-
-template = """
  <|system|>
 You are an AI assistant that follows instruction extremely well.
 Please be truthful and give direct answers
@@ -70,15 +61,21 @@ Please be truthful and give direct answers
  <|assistant|>
 """
 
-prompt = ChatPromptTemplate.from_template(template)
+qa = RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
 
-rag_chain = (
-    {"context": retriever,  "query": RunnablePassthrough()}
-    | prompt
-    | llm
-    | StrOutputParser()
-)
-
-response = rag_chain.invoke("What is the context you are provided is about?")
+response = qa.run(prompt)
 
 print(response)
+
+#prompt = ChatPromptTemplate.from_template(template)
+
+# rag_chain = (
+#     {"context": retriever,  "query": RunnablePassthrough()}
+#     | prompt
+#     | llm
+#     | StrOutputParser()
+# )
+
+#response = rag_chain.invoke("Who is the dean of FSIT")
+
+#print(response)
