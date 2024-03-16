@@ -40,7 +40,7 @@ retriever = vectorstore.as_retriever(
 
 llm = HuggingFaceHub(
     repo_id="huggingfaceh4/zephyr-7b-alpha",
-    model_kwargs={"temperature": 0.5, "max_length": 64,"max_new_tokens":512}
+    model_kwargs={"temperature": 0.01, "max_length": 128,"max_new_tokens":2048}
 )
 
 
