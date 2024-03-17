@@ -1,4 +1,4 @@
-from dotenv import load_dotenv
+
 from langchain.document_loaders import UnstructuredURLLoader
 import sitemap as sitemap
 from langchain.text_splitter import CharacterTextSplitter
@@ -10,7 +10,6 @@ from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.chains.question_answering import load_qa_chain 
 from langchain import OpenAI 
 import streamlit as st
-load_dotenv()
 
 #loaders = UnstructuredURLLoader(urls=sitemap.Urls)
 #data = loaders.load()
