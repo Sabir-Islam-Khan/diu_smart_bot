@@ -14,7 +14,7 @@ pip install python_dotenv
 langchain
 streamlit 
 python-magic-bin 
-pickel
+pickle
 faiss 
 openai 
 huggingface_hub
