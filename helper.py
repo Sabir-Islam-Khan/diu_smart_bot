@@ -1,9 +1,9 @@
 from dotenv import load_dotenv
-from langchain.document_loaders import UnstructuredURLLoader
-import sitemap as sitemap
-from langchain.text_splitter import CharacterTextSplitter
-import pickle
-import faiss
+#from langchain.document_loaders import UnstructuredURLLoader
+#import sitemap as sitemap
+#from langchain.text_splitter import CharacterTextSplitter
+#import pickle
+#import faiss
 from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings 
 from langchain.chains import RetrievalQAWithSourcesChain
@@ -12,12 +12,12 @@ from langchain import OpenAI
 
 load_dotenv()
 
-loaders = UnstructuredURLLoader(urls=sitemap.Urls)
-data = loaders.load()
+#loaders = UnstructuredURLLoader(urls=sitemap.Urls)
+#data = loaders.load()
 
-text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
+#text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
 
-docs = text_splitter.split_documents(data)
+#docs = text_splitter.split_documents(data)
 
 embeddings = OpenAIEmbeddings() 
 
