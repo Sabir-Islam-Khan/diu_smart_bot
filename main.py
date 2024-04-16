@@ -4,22 +4,22 @@ import helper as helper
 def main():
     data = helper.get_information("who is the dean of fsit")
     print(data["answer"])
-    # st.title("Daffodil Smart Bot")
+    st.title("Daffodil Smart Bot")
 
-    # text_input = st.text_input("What do you want to know?")
+    text_input = st.text_input("What do you want to know?")
     
-    # if st.button("Get Information"):
-    #     if text_input.strip():
-    #         data = helper.get_information(text_input)
-    #         if "answer" in data:
-    #             answer = data["answer"]
+    if st.button("Get Information"):
+        if text_input.strip():
+            data = helper.get_information(text_input)
+            if "answer" in data:
+                answer = data["answer"]
                 
-    #             st.success( answer)
+                st.success( answer)
                 
-    #         else:
-    #             st.error("No answer found for the query.")
-    #     else:
-    #         st.warning("Please enter a question to get an answer.")
+            else:
+                st.error("No answer found for the query.")
+        else:
+            st.warning("Please enter a question to get an answer.")
 
 if __name__ == "__main__":
     main()
