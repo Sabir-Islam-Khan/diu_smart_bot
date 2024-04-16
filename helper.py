@@ -21,9 +21,9 @@ load_dotenv()
 
 embeddings = OpenAIEmbeddings() 
 
-# vectorstore = FAISS.from_documents(docs, embeddings)
+#vectorstore = FAISS.from_documents(docs, embeddings)
 
-# vectorstore.save_local("vectorstore")
+#vectorstore.save_local("vectorstore")
 
 x = FAISS.load_local("vectorstore", OpenAIEmbeddings(), allow_dangerous_deserialization=True)
 
@@ -34,7 +34,7 @@ chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain
 
 
 def get_information(question):
-    data = chain({"question" : "Answer the questions with context like you are talking to a human. Question is : " + question})
+    data = chain({"question" : "You are a chatBot of Daffodil Interntional University. You have all the data you need. Answer the questions with context like you are talking to a human. Question is : " + question})
     return data
 
 
