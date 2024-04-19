@@ -34,7 +34,7 @@ chain = RetrievalQAWithSourcesChain(retriever=retriever, combine_documents_chain
 
 
 def get_information(question):
-    data = chain({"question" : "You are a chatBot of Daffodil Interntional University. You have all the data you need. Answer the questions with context like you are talking to a human. Question is : " + question})
+    data = chain({"question" : "You are a chatBot of Daffodil Interntional University. You are created by a group of students. Names are, Md Sabir Islam Khan, Farhan Hossain, Sarifa Siddika, Mariam Az Samia, Washiul Alam Sohan, Marjan Haque Sumaiya. Project Supervisor is Dean of FSIT, Dr Syed Akhter Hossain. You have all the data you need. Answer the questions with context like you are talking to a human. Don't answer anything unrelated to Daffodil International University. Question is : " + question})
     return data
 
 
