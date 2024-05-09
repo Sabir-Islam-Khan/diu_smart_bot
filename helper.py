@@ -43,11 +43,16 @@ print(docs)
 
 embeddings = OpenAIEmbeddings() 
 i = 1;
+t = 1;
 for d in docs:
     vectorstore = FAISS.from_documents(documents=[d], embedding = embeddings)
     print("sleeping ", i)
     i += 1
-    time.sleep(10)
+    
+    if(i%100 == 0):
+      print("sleeping ", t)
+      t += 1
+      time.sleep(10)
 
 vectorstore.save_local("vectorstore")
 
