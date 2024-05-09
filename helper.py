@@ -12,29 +12,9 @@ import glob
 import textract
 import os
 from langchain_community.document_loaders import TextLoader
+import time
 
 load_dotenv()
-
-# def load_data_from_files(directory):
-#     all_data = ""
-    
-#     # Iterate over all files in the directory
-#     for file_path in glob.glob(os.path.join(directory, "*")):
-#         print("Processing file:", file_path)  # Debug print
-        
-#         if file_path.endswith(".txt"):
-#             # Read text from text files and append to all_data string
-#             with open(file_path, "r", encoding="utf-8") as file:
-#                 all_data += file.read() + "\n"  # Add a newline separator
-#         elif file_path.endswith(".pdf"):
-#             # Extract text from PDF files and append to all_data string
-#             text = textract.process(file_path, method="pdftotext").decode("utf-8")
-#             all_data += text + "\n"  # Add a newline separator
-#     print("diu data is")
-#     print(all_data)   
-#     return all_data
-
-
 
 
 #data = load_data_from_files("diu_data")
@@ -47,8 +27,7 @@ except Exception as e:
 
 data = loader.load()
 
-print("data is ",  data)
-text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1500, chunk_overlap=200)
+text_splitter = CharacterTextSplitter(separator="\n", chunk_size=800, chunk_overlap=50)
 
 try:
    # Attempt to split documents
@@ -63,8 +42,12 @@ print("Docs here is")
 print(docs)
 
 embeddings = OpenAIEmbeddings() 
-
-vectorstore = FAISS.from_documents(docs, embeddings)
+i = 1;
+for d in docs:
+    vectorstore = FAISS.from_documents(documents=[d], embedding = embeddings)
+    print("sleeping ", i)
+    i += 1
+    time.sleep(10)
 
 vectorstore.save_local("vectorstore")
 
