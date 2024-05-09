@@ -52,7 +52,7 @@ for d in docs:
     if(i%100 == 0):
       print("sleeping ", t)
       t += 1
-      time.sleep(10)
+      time.sleep(60)
 
 vectorstore.save_local("vectorstore")
 
