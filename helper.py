@@ -17,44 +17,39 @@ import time
 load_dotenv()
 
 
-#data = load_data_from_files("diu_data")
+#try:
+#    loader = TextLoader("diu_data/combined_file.txt")
+# except Exception as e:
+#    print("error in loaded.")
+#    print(e)
 
-try:
-   loader = TextLoader("diu_data/combined_file.txt")
-except Exception as e:
-   print("error in loaded.")
-   print(e)
+# data = loader.load()
 
-data = loader.load()
+# text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1300, chunk_overlap=50)
 
-text_splitter = CharacterTextSplitter(separator="\n", chunk_size=800, chunk_overlap=50)
+# try:
+#    # Attempt to split documents
+#    docs = text_splitter.split_documents(data)
+# except Exception as e:
+#   #  Handle any exceptions
+#    print(f"Error occurred while splitting documents: {e}")
+#    docs = []
 
-try:
-   # Attempt to split documents
-   docs = text_splitter.split_documents(data)
-except Exception as e:
-  #  Handle any exceptions
-   print(f"Error occurred while splitting documents: {e}")
-   docs = []
 
-#Proceed with the rest of your code
-print("Docs here is")
-print(docs)
-
-embeddings = OpenAIEmbeddings() 
-i = 1;
-t = 1;
-for d in docs:
-    vectorstore = FAISS.from_documents(documents=[d], embedding = embeddings)
-    print("sleeping ", i)
-    i += 1
+# embeddings = OpenAIEmbeddings() 
+# i = 1;
+# t = 1;
+# for d in docs:
+#     vectorstore = FAISS.from_documents(documents=[d], embedding = embeddings)
+#     print("sleeping ", i)
+#     i += 1
     
-    if(i%100 == 0):
-      print("sleeping ", t)
-      t += 1
-      time.sleep(60)
+#     if(i%100 == 0):
+#       print("sleeping ", t)
+#       t += 1
+#       time.sleep(60)
 
-vectorstore.save_local("vectorstore")
+# vectorstore.save_local("vectorstore")
 
 x = FAISS.load_local("vectorstore", OpenAIEmbeddings(), allow_dangerous_deserialization=True)
 
@@ -70,5 +65,5 @@ def get_information(question):
     data = chain({"question" : "You are a chatbot of daffodil interntional university. Students ask you about their query and you answer accordingly. Here is a question" + question})
     return data
 
-dummy = get_information("all the available scholarships for cse")
+dummy = get_information("Who is dean of fsit")
 print(dummy)
