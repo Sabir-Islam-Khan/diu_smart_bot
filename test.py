@@ -6,7 +6,6 @@ from openai.embeddings_utils import get_embedding, cosine_similarity
 import tiktoken
 
 # Set up your OpenAI API key
-openai.api_key = "sk-proj-EG6oHivYBFQ8PNI7NStxT3BlbkFJHi9YGda9NhjdHxwxFZxq"
 
 # Set the model to use for embeddings
 embedding_model = "text-embedding-ada-002"
